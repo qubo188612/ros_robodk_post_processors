@@ -1,0 +1,9 @@
+uint16 number
+uint16 mf
+uint32[] args # Only unigned arguments are supported
+
+# Syntax is:
+# MACRO$number MJ#($mf) ARGF$args[0] ARGF$args[1] ...
+---
+# Success if empty
+string error

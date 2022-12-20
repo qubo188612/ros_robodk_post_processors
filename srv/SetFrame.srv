@@ -1,0 +1,6 @@
+uint32 frame_id
+string frame_name
+geometry_msgs/Pose pose
+---
+# Success if empty
+string error

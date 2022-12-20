@@ -1,0 +1,67 @@
+image: docker:stable
+variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    ROS_DISTRO: kinetic
+    CATKIN_WS: /home/catkin_ws
+    CONTAINER_IMAGE: mrtd-gitlab.dyn.datasys.swri.edu:5005/10-23539/rars:latest
+
+services:
+    - docker:dind
+
+before_script:
+    - apk update && apk add --no-cache wget git openssh-client bash
+    - (cd / && git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@mrtd-gitlab.dyn.datasys.swri.edu/mrtd_developers/mrtd_ci.git)
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+stages:
+    - setup
+    - build
+    - test
+
+setup:
+    stage: setup
+    tags:
+        - docker-docker
+    script:
+        - /mrtd_ci/mrtd_ci
+
+catkin_tools:
+    stage: build
+    tags:
+        - docker-docker
+    variables:
+        GIT_STRATEGY: none
+    script:
+        - /mrtd_ci/mrtd_ci
+
+run_tests:
+    stage: test
+    tags:
+        - docker-docker
+    variables:
+        GIT_STRATEGY: none
+    allow_failure: true
+    script:
+        - /mrtd_ci/mrtd_ci
+
+clang_format:
+    stage: test
+    tags:
+        - docker-docker
+    variables:
+        GIT_STRATEGY: none
+    allow_failure: true
+    script:
+        - /mrtd_ci/mrtd_ci
+
+catkin_lint:
+    stage: test
+    tags:
+        - docker-docker
+    variables:
+        GIT_STRATEGY: none
+    allow_failure: true
+    script:
+        - /mrtd_ci/mrtd_ci
+

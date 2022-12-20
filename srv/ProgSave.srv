@@ -1,0 +1,8 @@
+string program_name
+
+# Where the native code should be saved on the disk
+string file_saving_dir
+---
+# Empty if success
+string error
+string native_code

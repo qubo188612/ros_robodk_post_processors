@@ -1,0 +1,5 @@
+uint16 asf_file
+---
+# Success if empty
+string error
+

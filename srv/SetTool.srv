@@ -1,0 +1,6 @@
+uint32 tool_id
+string tool_name
+geometry_msgs/Pose pose
+---
+# Success if empty
+string error

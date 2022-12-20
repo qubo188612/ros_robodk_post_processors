@@ -1,0 +1,5 @@
+string program_name
+---
+# Success if empty
+string error
+string native_code
